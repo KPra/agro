@@ -4,5 +4,15 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyDjMRAHhozpNwYkekUivH8WX8C1fRRXVsQ",
+    authDomain: "agromap-b3192.firebaseapp.com",
+    databaseURL: "https://agromap-b3192.firebaseio.com",
+    projectId: "agromap-b3192",
+    storageBucket: "",
+    messagingSenderId: "583199468331"
+  },
+
+  googleMapsKey: 'AIzaSyBZFgYHnY4o_MquZuqvperMvi1gssj-ZiU'
 };
