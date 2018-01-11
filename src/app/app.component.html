@@ -1,15 +1,21 @@
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      Header here!
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      Search bar
-    </div>
-    <div class="col-xs-6">
-      <app-google-map></app-google-map>
+      <div class="col-xs-3">
+        <div class="row">
+          <input type="text" class="form-control" name="Lookup Location" placeholder="Search">
+        </div>
+        <br>
+        <div class="row">
+          <input type="button" class="btn btn-primary" value="Search">
+          <input type="button" class="btn btn-success" value="Where Am I" (click)="agroMap.refresh();"/>
+          <input type="button" class="btn btn-danger" value="Clear"/>
+        </div>
+      </div>
+      <div class="col-xs-9">
+        <app-google-map [mapData]="data" [lat]="latitude" [lng]="longitude" #agroMap></app-google-map>
+      </div>
     </div>
   </div>
 </div>
