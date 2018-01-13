@@ -32,16 +32,16 @@ export class AppComponent {
     });
   }
 
-  public getUserLocation() {
-    // locate the user
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-      });
-    }
-    console.log(navigator.geolocation);
-    console.log('getUserLocation of app component called!' + this.latitude + '--' + this.longitude);
-  }
+  // public getUserLocation() {
+  //   // locate the user
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       this.latitude = position.coords.latitude;
+  //       this.longitude = position.coords.longitude;
+  //     });
+  //   }
+  //   console.log(navigator.geolocation);
+  //   console.log('getUserLocation of app component called!' + this.latitude + '--' + this.longitude);
+  // }
 
 }

@@ -10,12 +10,14 @@ import {AgmCoreModule} from '@agm/core';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { HeaderComponent } from './header/header.component';
 import {HttpModule} from '@angular/http';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleMapComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

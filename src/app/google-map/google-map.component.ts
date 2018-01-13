@@ -41,8 +41,15 @@ export class GoogleMapComponent implements OnInit {
   }
 
   refresh() {
-    console.log('refresh called!');
-    this.getUserLocation();
+    // console.log('refresh called!');
+    // this.getUserLocation();
+    this.lat = 0;
+    this.lng = 0;
+    setTimeout(() => {
+      console.log('refresh called');
+      this.lat = 12.911759400000001;
+      this.lng = 77.6085251;
+    }, 5);
   }
 
 }
