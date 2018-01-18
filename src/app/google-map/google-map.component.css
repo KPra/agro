@@ -1,4 +1,7 @@
 agm-map {
-  width: 70vw;
-  height: 85vh;
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }

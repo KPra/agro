@@ -1,9 +1,9 @@
-<div *ngIf="lat && lng">
+<div *ngIf="lat && lng" class="container-fluid">
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="7" [disableDoubleClickZoom]="true"
 [zoomControl]="false" [usePanning]="true">
 <agm-polygon [paths]="triangleCoords">
 </agm-polygon>
-<agm-marker [latitude]="lat" [longitude]="lng" >
+<agm-marker [latitude]="lat" [longitude]="lng">
  <agm-info-window>
    <h3><strong>Howdy!</strong></h3>
    <p>You are here!</p>

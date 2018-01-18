@@ -1,14 +1,8 @@
-<app-header></app-header>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="col-xs-3">
-        <app-sidebar></app-sidebar>
-      </div>
-      <div class="col-xs-9">
-        <app-google-map [mapData]="data" #agroMap></app-google-map>
-      </div>
-    </div>
-  </div>
-</div>
-
+<app-header (toggle)="processToggle($event);"></app-header>
+<!--<app-sidebar [ngClass]="{'sidebar-collapsed' : toggled === 'collapse'}"-->
+             <!--[ngClass]="{'sidebar-expanded' : toggled === 'expand'}"></app-sidebar>-->
+<app-sidebar class="sidebar-expanded" *ngIf="isToggled()"
+(locateEmitter)="agroMap.refresh();"></app-sidebar>
+<app-google-map [mapData]="data" #agroMap
+ [ngClass]="{'main-collapsed': toggled === 'collapse'}"
+                [ngClass]="{'main-expanded': toggled === 'expand'}"></app-google-map>

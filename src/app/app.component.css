@@ -1,0 +1,30 @@
+.sidebar-collapsed{
+  z-index: 1;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  overflow-y: hidden;
+  background: #2C3E50;
+  border: 2px solid;
+  opacity: 0.9;
+}
+
+.main-collapsed{
+  width: 100%;
+}
+
+.sidebar-expanded{
+  z-index: 1;
+  position: absolute;
+  padding-top: 10%;
+  width: 350px;
+  height: 100%;
+  overflow-y: hidden;
+  background: #2C3E50;
+  opacity: 0.9;
+}
+
+.main-expanded{
+  padding-left: 350px;
+}
+

@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'app';
   private apiUrl = 'http://polygons.openstreetmap.fr/get_geojson.py?id=2019939&params=0';
   data: any = {};
+  toggled = 'collapse';
   @Output() latitude: number;
   @Output() longitude: number;
 
@@ -31,6 +32,17 @@ export class AppComponent {
       this.data = data;
     });
   }
+
+  processToggle(toggledStatus : string) {
+    console.log('app component toggled called ' + toggledStatus);
+    this.toggled = toggledStatus;
+  }
+
+  isToggled() {
+    return this.toggled === 'expand' ? true : false;
+  }
+
+
 
   // public getUserLocation() {
   //   // locate the user
