@@ -11,6 +11,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { HeaderComponent } from './header/header.component';
 import {HttpModule} from '@angular/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,9 +22,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AgmCoreModule.forRoot({
-      apiKey: environment.googleMapsKey
+      apiKey: environment.googleMapsKey,
+      libraries: ['places']
     }),
     HttpModule
   ],

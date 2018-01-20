@@ -1,9 +1,16 @@
+<div class="container">
+  <div class="col-xs-3">
 <div class="row">
-  <input type="text" class="form-control" name="Lookup Location" placeholder="Search">
-</div>
-<br>
-<div class="row">
-  <input type="button" class="btn btn-primary" value="Search">
-  <input type="button" class="btn btn-success" value="Where Am I" (click)="currentLocation()"/>
-  <input type="button" class="btn btn-danger" value="Clear"/>
+  <div class="form-group">
+    <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off"
+           type="text" class="form-control" #search [formControl]="searchControl">
+  </div>
+    </div>
+    <br>
+    <div class="row">
+      <input type="button" class="btn btn-primary" value="Search">
+      <input type="button" class="btn btn-success" value="Where Am I" (click)="currentLocation()"/>
+      <input type="button" class="btn btn-danger" value="Clear"/>
+    </div>
+  </div>
 </div>
