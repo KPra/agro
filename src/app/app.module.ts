@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import {HttpModule} from '@angular/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
       apiKey: environment.googleMapsKey,
       libraries: ['places']
     }),
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   providers: [AppComponent],
   bootstrap: [AppComponent]

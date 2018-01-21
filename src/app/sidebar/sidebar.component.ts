@@ -2,6 +2,11 @@ import {Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} 
 import {MapsAPILoader} from "@agm/core";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {} from '@types/googlemaps';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {Address} from "./address";
+import {Result} from "./result";
+import {AddressDetail} from "./addressDetail";
+
 
 @Component({
   selector: 'app-sidebar',
@@ -15,9 +20,10 @@ export class SidebarComponent implements OnInit {
   public searchElementRef: ElementRef;
   public latitude: number;
   public longitude: number;
+  public position: any;
 
   constructor( private mapsAPILoader: MapsAPILoader,
-               private ngZone: NgZone) { }
+               private ngZone: NgZone, private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.setCurrentPosition();
@@ -27,11 +33,11 @@ export class SidebarComponent implements OnInit {
         types: []
       });
 
-      autocomplete.addListener("place_changed", () => {
+     autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           // get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
+          console.log('place is >>>>>>>>>>>>>>>>'+place);
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -58,13 +64,38 @@ export class SidebarComponent implements OnInit {
 
   currentLocation() {
     this.locateEmitter.emit('refresh');
+    console.log('current location ' + this.latitude + this.longitude);
+
+    const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
+      '?latlng=12.911765477,77.60845379999999&key=AIzaSyBZFgYHnY4o_MquZuqvperMvi1gssj-ZiU';
+
+    this.httpClient.get<Result>(url)
+      .subscribe(data => {
+          console.log(data.status);
+          console.log(data);
+
+          let details: AddressDetail[];
+          details = data.results;
+        console.log('<<<<<<<<<<<<<<<<<<<<' + details);
+        let address: Address[];
+        address = details[7].address_components;
+        console.log(address);
+        console.log(address[0].long_name);
+        console.log(address[1].long_name);
+        console.log(address[2].long_name);
+        console.log(address[3].long_name);
+        }
+      );
   }
 
   private setCurrentPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log('setCurrentPosition() called!' + position.coords.latitude + position.coords.longitude);
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
+        this.position = position;
+        console.log('setCurrentPosition() called!' + this.latitude + this.longitude);
       });
     }
   }
