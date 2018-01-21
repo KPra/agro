@@ -2,7 +2,7 @@
 <!--<app-sidebar [ngClass]="{'sidebar-collapsed' : toggled === 'collapse'}"-->
              <!--[ngClass]="{'sidebar-expanded' : toggled === 'expand'}"></app-sidebar>-->
 <app-sidebar class="sidebar-expanded" *ngIf="isToggled()"
-(locateEmitter)="agroMap.refresh();"></app-sidebar>
+(locateEmitter)="agroMap.refresh($event);"></app-sidebar>
 <app-google-map [mapData]="data" #agroMap
  [ngClass]="{'main-collapsed': toggled === 'collapse'}"
                 [ngClass]="{'main-expanded': toggled === 'expand'}"></app-google-map>

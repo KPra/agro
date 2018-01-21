@@ -4,9 +4,8 @@
 <agm-polygon [paths]="triangleCoords">
 </agm-polygon>
 <agm-marker [latitude]="lat" [longitude]="lng">
- <agm-info-window>
-   <h3><strong>Howdy!</strong></h3>
-   <p>You are here!</p>
+ <agm-info-window [isOpen]="true">
+    <p>{{place}}</p>
  </agm-info-window>
 </agm-marker>
 </agm-map>
