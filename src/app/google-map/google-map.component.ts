@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Location} from "../sidebar/location";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Result} from "../sidebar/result";
 import {AddressDetail} from "../sidebar/addressDetail";
 import {Address} from "../sidebar/address";
+import Marker = google.maps.Marker;
+import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-google-map',
@@ -15,13 +17,15 @@ export class GoogleMapComponent implements OnInit {
   @Input('lat') lat: number;
   @Input('lng') lng: number;
   @Input('mapData') mapData: any;
-  place: string;
+  // @ViewChild('marker') marker: Marker;
 
-  triangleCoords = [
-    {lat: 25.774, lng: -80.190},
-    {lat: 18.466, lng: -66.118},
-    {lat: 32.321, lng: -64.757},
-    {lat: 25.774, lng: -80.190}
+  place: string;
+  icon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+  locations = [
+    {lat: 12.9715987, lng: 77.5945627},
+    {lat: 12.5715987, lng: 77.1945627},
+    {lat: 12.1715987, lng: 78.5945627}
   ];
 
   constructor(private httpClient: HttpClient) {}
@@ -29,6 +33,7 @@ export class GoogleMapComponent implements OnInit {
   ngOnInit() {
     this.getUserLocation();
     this.getStateCoordinates();
+    // this.marker.setAnimation(google.maps.Animation.BOUNCE);
   }
 
   private getUserLocation() {
@@ -48,7 +53,7 @@ export class GoogleMapComponent implements OnInit {
             details = data.results;
             let address: Address[];
             address = details[0].address_components;
-            this.place = address[4].long_name.concat(' ' + address[5].long_name
+            this.place = 'You are at ' + address[4].long_name.concat(' ' + address[5].long_name
               + ' ' + address[6].long_name + ' ' + address[7].long_name);
             console.log(this.place);
           });
@@ -74,7 +79,7 @@ export class GoogleMapComponent implements OnInit {
       // this.getUserLocation();
       this.lat = location.latitude;
       this.lng = location.longitude;
-      this.place = location.address;
+      this.place = 'You are at ' + location.address;
       console.log('place dude >>>>>>>>>>>>>>>>>>>>>>>> ' + this.place);
     }, 5);
   }

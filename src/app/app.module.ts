@@ -13,13 +13,15 @@ import {HttpModule} from '@angular/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ButtonbarComponent } from './buttonbar/buttonbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleMapComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ButtonbarComponent
   ],
   imports: [
     BrowserModule,

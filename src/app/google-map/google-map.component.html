@@ -1,9 +1,7 @@
 <div *ngIf="lat && lng" class="container-fluid">
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="7" [disableDoubleClickZoom]="true"
-[zoomControl]="false" [usePanning]="true">
-<agm-polygon [paths]="triangleCoords">
-</agm-polygon>
-<agm-marker [latitude]="lat" [longitude]="lng">
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="8">
+<agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="icon" #marker
+            *ngFor="let location of locations">>
  <agm-info-window [isOpen]="true">
     <p>{{place}}</p>
  </agm-info-window>
