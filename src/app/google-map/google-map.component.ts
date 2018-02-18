@@ -1,3 +1,5 @@
+import { ResourceLocations } from './resourceLocations';
+import { ResourceLocation } from './resourceLocation';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Location} from "../sidebar/location";
 import {HttpClient} from "@angular/common/http";
@@ -20,19 +22,23 @@ export class GoogleMapComponent implements OnInit {
   // @ViewChild('marker') marker: Marker;
 
   place: string;
+  currentLocationOpen = true;
   icon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
-  locations = [
-    {lat: 12.9715987, lng: 77.5945627},
-    {lat: 12.5715987, lng: 77.1945627},
-    {lat: 12.1715987, lng: 78.5945627}
-  ];
+  // locations = [
+  //   {lat: 12.9715987, lng: 77.5945627, status: false},
+  //   {lat: 12.5715987, lng: 77.1945627, status: false},
+  //   {lat: 12.1715987, lng: 78.5945627, status: false}
+  // ];
+
+  locations: ResourceLocation[];
 
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
     this.getUserLocation();
     this.getStateCoordinates();
+    this.fetchAllFarmers();
     // this.marker.setAnimation(google.maps.Animation.BOUNCE);
   }
 
@@ -41,12 +47,12 @@ export class GoogleMapComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-
+        this.lng = position.coords.longitude;        
         let param = this.lat + ',' + this.lng;
+        console.log('>>>>>>>>>>>>'+this.lat+this.lng);
         const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
           '?latlng=' + param + '&key=' + environment.googleMapsKey;
-
+        console.log('url is '+url);
         this.httpClient.get<Result>(url)
           .subscribe(data => {
             let details: AddressDetail[];
@@ -55,12 +61,14 @@ export class GoogleMapComponent implements OnInit {
             address = details[0].address_components;
             this.place = 'You are at ' + address[4].long_name.concat(' ' + address[5].long_name
               + ' ' + address[6].long_name + ' ' + address[7].long_name);
-            console.log(this.place);
           });
-      });
-    }
+      });      
+    }    
     console.log('getUserLocation of google map ' + this.lat + '--' + this.lng);
   }
+
+
+
 
   private getStateCoordinates() {
     console.log('getStateCoordinates called!');
@@ -84,4 +92,22 @@ export class GoogleMapComponent implements OnInit {
     }, 5);
   }
 
+  openThisLocation(index: number){
+    console.log(index);
+    for(let location of this.locations){
+      location.status = false;
+   }
+   this.locations[index].status = true;
+   this.currentLocationOpen = false;
+  }
+
+  fetchAllFarmers(){
+    this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllFarmers")
+    .subscribe(data => {
+      console.log('data '+data);
+      console.log('data '+data.locations);
+      this.locations = data.locations;      
+      console.log('locations is '+this.locations);
+    });
+  }
 }

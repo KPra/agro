@@ -18,7 +18,7 @@ export class AppComponent {
   constructor(private http: Http) {
     console.log('inside constructor!');
     this.getCoordinates();
-    this.getData();
+    // this.getData();
     console.log(this.data);
   }
 

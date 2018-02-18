@@ -1,10 +1,17 @@
 <div *ngIf="lat && lng" class="container-fluid">
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="8">
-<agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="icon" #marker
-            *ngFor="let location of locations">>
- <agm-info-window [isOpen]="true">
-    <p>{{place}}</p>
- </agm-info-window>
+<agm-marker [latitude]="lat" [longitude]="lng">
+    <agm-info-window [isOpen]="currentLocationOpen">
+      <p>{{place}}</p>
+    </agm-info-window>
+</agm-marker>    
+<agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="icon" (markerClick)="openThisLocation(i);" #marker
+*ngFor="let location of locations; let i=index">
+<agm-info-window [isOpen]="location.status">
+<p><b>Farmer Name</b> : {{location.name}}</p>
+<p>This farmer wants to rent out :</p>
+<p>{{location.info}}</p>
+</agm-info-window>
 </agm-marker>
 </agm-map>
 </div>
