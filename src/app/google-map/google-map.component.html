@@ -11,7 +11,30 @@
 <p><b>Farmer Name</b> : {{location.name}}</p>
 <p><b>Location</b> : {{location.place}}</p>
 <p><b>This farmer wants to rent out :</b></p>
-<p>{{location.info}}</p>
+    <span *ngIf="location.tractor">tractor 
+        <img src="assets/tractor.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.tiller">
+            tiller <img src="assets/tiller.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.labor">
+            labourer <img src="assets/labourer.png" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.shredder">
+            shredder <img src="assets/shredder.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.mower">
+            mower <img src="assets/mower.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.trolley">
+            trolley <img src="assets/trolley.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.sprayer">
+            sprayer <img src="assets/sprayer.jpg" width="40px" height="40px"/>
+    </span>
+    <span *ngIf="location.land">
+            land <img src="assets/land.jpg" width="40px" height="40px"/>
+    </span>
 </agm-info-window>
 </agm-marker>
 </agm-map>

@@ -133,6 +133,31 @@ export class GoogleMapComponent implements OnInit {
         }
         location.place = concatAdd;
       });
+    
+      if(location.info.search('tractor') != -1){
+        location.tractor = true;        
+      }
+      if(location.info.search('tiller') != -1){
+        location.tiller = true;
+      }
+      if(location.info.search('labor') != -1){
+        location.labor = true;
+      }
+      if(location.info.search('shredder') != -1){
+        location.shredder = true;
+      }
+      if(location.info.search('mower') != -1){
+        location.mower = true;
+      }
+      if(location.info.search('trolley') != -1){
+        location.trolley = true;
+      }
+      if(location.info.search('sprayer') != -1){
+        location.sprayer = true;
+      }
+      if(location.info.search('land') != -1){
+        location.land = true;
+      }
     }
     });
   }
