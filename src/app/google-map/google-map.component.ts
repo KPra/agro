@@ -52,15 +52,20 @@ export class GoogleMapComponent implements OnInit {
         console.log('>>>>>>>>>>>>'+this.lat+this.lng);
         const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
           '?latlng=' + param + '&key=' + environment.googleMapsKey;
-        console.log('url is '+url);
+        console.log('url is ##'+url);
         this.httpClient.get<Result>(url)
           .subscribe(data => {
             let details: AddressDetail[];
             details = data.results;
             let address: Address[];
             address = details[0].address_components;
-            this.place = 'You are at ' + address[4].long_name.concat(' ' + address[5].long_name
-              + ' ' + address[6].long_name + ' ' + address[7].long_name);
+              let concatAdd = '';
+              for(let add of address){
+                if(add.long_name != undefined){                    
+                  concatAdd += add.long_name + ' ';
+                }
+              }
+              this.place = concatAdd;
           });
       });      
     }    
@@ -108,6 +113,27 @@ export class GoogleMapComponent implements OnInit {
       console.log('data '+data.locations);
       this.locations = data.locations;      
       console.log('locations is '+this.locations);
+
+      for(let location of this.locations){
+      let param = location.lat + ',' + location.lng;
+      const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
+      '?latlng=' + param + '&key=' + environment.googleMapsKey;
+    console.log('url is '+url);
+    this.httpClient.get<Result>(url)
+      .subscribe(data => {
+        let details: AddressDetail[];
+        details = data.results;
+        let address: Address[];
+        address = details[0].address_components;
+        let concatAdd = '';
+        for(let add of address){
+          if(add.long_name != undefined){                    
+            concatAdd += add.long_name + ' ';
+          }
+        }
+        location.place = concatAdd;
+      });
+    }
     });
   }
 }
