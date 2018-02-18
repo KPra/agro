@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -21,7 +22,8 @@ import { ButtonbarComponent } from './buttonbar/buttonbar.component';
     GoogleMapComponent,
     HeaderComponent,
     SidebarComponent,
-    ButtonbarComponent
+    ButtonbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { ButtonbarComponent } from './buttonbar/buttonbar.component';
     HttpModule,
     HttpClientModule
   ],
-  providers: [AppComponent],
-  bootstrap: [AppComponent]
+  providers: [HomeComponent],
+  bootstrap: [HomeComponent]
 })
 export class AppModule { }

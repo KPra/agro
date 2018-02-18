@@ -40,7 +40,7 @@ export class GoogleMapComponent implements OnInit {
     this.getStateCoordinates();
     this.fetchAllFarmers();
     // this.marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
+  }  
 
   private getUserLocation() {
     // locate the user
