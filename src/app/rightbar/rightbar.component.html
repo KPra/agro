@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="col-xs-4">
+      <div class="row">
+        <input type="button" class="btn btn-primary" value="Farmers" (click)="showFarmersActivateSearch();">
+        <input type="button" class="btn btn-primary" value="Dealers" (click)="showDealersActivateSearch();"/>
+        <input type="button" class="btn btn-primary" value="Vendors" (click)="showVendorsActivateSearch();"/>
+        <br/>
+        <br/>
+        <div class="form-group" *ngIf="isActivated">
+            <input placeholder="Farming Resource" autocorrect="off" autocapitalize="off" spellcheck="off"
+                   type="text" class="form-control">
+                   <br/>
+            <input type="button" class="btn btn-success" value="Search"/>
+        </div>
+        
+      </div>
+    </div>            
+  </div>

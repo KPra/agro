@@ -1,5 +1,7 @@
+import { User } from './user';
 import {Component, Output} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {ActivatedRoute} from '@angular/router'
 import 'rxjs/add/operator/map';
 
 @Component ({
@@ -8,18 +10,35 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  userLogged: User;
+  username: String;
+  private sub: any;
   title = 'app';
   private apiUrl = 'http://polygons.openstreetmap.fr/get_geojson.py?id=2019939&params=0';
   data: any = {};
   toggled = 'collapse';
   @Output() latitude: number;
   @Output() longitude: number;
+  phone: Number;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private route: ActivatedRoute, 
+private user: User) {
     console.log('inside constructor!');
     this.getCoordinates();
+    this.userLogged = user;
+    console.log('the logged in user is '+ JSON.stringify(this.user.storage));
+    this.username = this.user.storage.username;
+    console.log('username'+this.username);
+    this.phone = this.user.storage.phone;
     // this.getData();
     console.log(this.data);
+  }
+
+  ngOnInit(){
+    //   this.sub = this.route.queryParams.subscribe(params => {
+    //     this.user = params['user'];
+    //     console.log('the logged in user is '+this.user.phoneno+this.user.username);
+    //   });
   }
 
   getData() {

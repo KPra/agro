@@ -7,6 +7,7 @@ import {environment} from "../../environments/environment";
 import {Result} from "../sidebar/result";
 import {AddressDetail} from "../sidebar/addressDetail";
 import {Address} from "../sidebar/address";
+import {HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import Marker = google.maps.Marker;
 import {} from '@types/googlemaps';
 
@@ -19,6 +20,7 @@ export class GoogleMapComponent implements OnInit {
   @Input('lat') lat: number;
   @Input('lng') lng: number;
   @Input('mapData') mapData: any;
+  @Input('phone') phone: number;
   // @ViewChild('marker') marker: Marker;
 
   place: string;
@@ -115,6 +117,8 @@ export class GoogleMapComponent implements OnInit {
       console.log('locations is '+this.locations);
 
       for(let location of this.locations){
+      location.favoriteButton = false;
+      location.requestButton = false;
       let param = location.lat + ',' + location.lng;
       const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
       '?latlng=' + param + '&key=' + environment.googleMapsKey;
@@ -160,5 +164,36 @@ export class GoogleMapComponent implements OnInit {
       }
     }
     });
+  }
+
+  sendRequest(name: String) {
+    console.log('send message to '+ this.phone+ name);
+    for(let location of this.locations){
+      if(location.name == name){
+        location.requestButton = true;
+      }
+    }
+    // let myHeaders = new Headers({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }); 
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
+
+    this.httpClient.post("http://localhost:8090/OHRestServices/sendMessage",
+    {
+      "email":"creativeku1@gmail.com",
+      "password":"sms1234",
+      "device":"78747",
+      "number":"9986695955",
+      "message":"hello there man!!"
+    })
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+      }
+    );
   }
 }

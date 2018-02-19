@@ -2,7 +2,7 @@
     <div class="container-fluid">
       <div class="navbar-default">
         <ul class="nav navbar-nav">
-          <li><a href="#" (click)="toggleSidebar();"><span class='glyphicon glyphicon-th-list'
+          <li><a href="#" [routerLink]="['home']" (click)="toggleSidebar();"><span class='glyphicon glyphicon-th-list'
           *ngIf="!toggleStatus"></span>
             <span class='glyphicon glyphicon-remove'
                   *ngIf="toggleStatus"></span></a></li>
@@ -24,14 +24,12 @@
       <ul class="nav navbar-nav">
           <li><a href="#">Bulk Sell</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right dropdown">
-        <li><a href="#" class="dropdown-toggle">Manage<span class="caret"></span></a></li>
-        <ul class="dropdown-menu">
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Settings</a></li>
-          <li><a href="#">Logout</a></li>
-        </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/login']">Logout</a></li>        
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/hello']">Hello {{username}}</a></li>
+    </ul>     
     </div>
     </div>
   </nav>

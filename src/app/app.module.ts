@@ -1,6 +1,10 @@
+import { RightbarComponent } from './rightbar/rightbar.component';
+import { User } from './home/user';
+import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
+import {Route, RouterModule} from '@angular/router';
 
 import {environment} from '../environments/environment';
 import {AngularFireModule} from 'angularfire2';
@@ -16,6 +20,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ButtonbarComponent } from './buttonbar/buttonbar.component';
 
+const ROUTES: Route[] = [
+  {path: 'login', component: LoginComponent},
+  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full'}
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +33,9 @@ import { ButtonbarComponent } from './buttonbar/buttonbar.component';
     HeaderComponent,
     SidebarComponent,
     ButtonbarComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RightbarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +47,10 @@ import { ButtonbarComponent } from './buttonbar/buttonbar.component';
       libraries: ['places']
     }),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES)
   ],
-  providers: [HomeComponent],
-  bootstrap: [HomeComponent]
+  providers: [User],
+  bootstrap: [AppComponent]  
 })
 export class AppModule { }

@@ -35,6 +35,9 @@
     <span *ngIf="location.land">
             land <img src="assets/land.jpg" width="40px" height="40px"/>
     </span>
+    <br/><br/>
+            <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name);" [class.disabled]="location.requestButton"/>
+            <input type="button" class="btn btn-success" value="Add To Favorites"/>
 </agm-info-window>
 </agm-marker>
 </agm-map>
