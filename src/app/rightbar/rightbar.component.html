@@ -8,10 +8,9 @@
         <br/>
         <br/>
         <div class="form-group" *ngIf="isActivated">
-            <input placeholder="Farming Resource" autocorrect="off" autocapitalize="off" spellcheck="off"
-                   type="text" class="form-control">
+                <ng2-completer [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0"></ng2-completer>
                    <br/>
-            <input type="button" class="btn btn-success" value="Search"/>
+            <input type="button" class="btn btn-success" value="Search" (click)="searchInfo();"/>
         </div>        
         <div>
             <img src="../../assets/deal1.jpg" alt="deal1" width="85%" height="75%"/>

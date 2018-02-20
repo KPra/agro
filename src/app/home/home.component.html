@@ -7,5 +7,6 @@
  [ngClass]="{'main-collapsed': toggled === 'collapse'}"
                 [ngClass]="{'main-expanded': toggled === 'expand'}"></app-google-map>
 <app-rightbar class="buttonbar-expanded" (farmerEmitter)="agroMap.fetchAllFarmers();"
-(dealerEmitter)="agroMap.fetchDealers();" (shopEmitter)="agroMap.fetchShops();"></app-rightbar>
+(dealerEmitter)="agroMap.fetchDealers();" (shopEmitter)="agroMap.fetchShops();"
+(resourceEmitter)="agroMap.fetchFarmersWithResource($event);"></app-rightbar>
 <!--<app-buttonbar class="buttonbar-expanded"></app-buttonbar>-->

@@ -19,6 +19,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ButtonbarComponent } from './buttonbar/buttonbar.component';
+import { Ng2CompleterModule } from "ng2-completer";
 
 const ROUTES: Route[] = [
   {path: 'login', component: LoginComponent},
@@ -39,6 +40,7 @@ const ROUTES: Route[] = [
   ],
   imports: [
     BrowserModule,
+    Ng2CompleterModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
       this.loading = true;      
     
     console.log('user is '+this.model.username);
-    if(this.model.username == 'praveen'){
+    if(this.model.username == 'test'){
         this.userLogged.storage = {
             "username": this.model.username,
             "phone": 9986695955

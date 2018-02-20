@@ -66,6 +66,34 @@
                         </agm-info-window>
                 </agm-marker>        
         </div>
+        <div *ngIf="showTractors">
+                <div *ngFor="let location of locations; let i=index">
+                        <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="tractorIcon" (markerClick)="openThisLocation(i);" #marker
+                                *ngIf="location.tractor">
+                                <agm-info-window [isOpen]="location.status">
+                                <p><b>Farmer Name</b> : {{location.name}}</p>
+                                <p><b>Location</b> : {{location.place}}</p>
+                                <br/><br/>
+                                <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name, 'shop');" [class.disabled]="location.requestButton"/>
+                                <input type="button" class="btn btn-success" value="Add To Favorites"/>
+                                </agm-info-window>
+                        </agm-marker> 
+                </div>       
+                </div>
+                <div *ngIf="showTillers">
+                                <div *ngFor="let location of locations; let i=index">
+                                        <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="tillerIcon" (markerClick)="openThisLocation(i);" #marker
+                                                *ngIf="location.tiller">
+                                                <agm-info-window [isOpen]="location.status">
+                                                <p><b>Farmer Name</b> : {{location.name}}</p>
+                                                <p><b>Location</b> : {{location.place}}</p>
+                                                <br/><br/>
+                                                <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name, 'shop');" [class.disabled]="location.requestButton"/>
+                                                <input type="button" class="btn btn-success" value="Add To Favorites"/>
+                                                </agm-info-window>
+                                        </agm-marker> 
+                                </div>       
+                                </div>
 </agm-map>
 </div>
 

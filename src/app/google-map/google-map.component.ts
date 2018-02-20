@@ -24,6 +24,8 @@ export class GoogleMapComponent implements OnInit {
   showFarmer = true;
   showDealer = false;
   showShops = false;
+  showTractors = false;
+  showTillers = false;
   // @ViewChild('marker') marker: Marker;
 
   place: string;
@@ -31,8 +33,9 @@ export class GoogleMapComponent implements OnInit {
   // icon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   icon = '../../assets/farmer.png';
   dealerIcon = '../../assets/dealer.jpg';
-  shopIcon = '../../assets/shop.jpg'
-
+  shopIcon = '../../assets/shop.jpg';
+  tractorIcon = '../../assets/tractor2.jpg';
+  tillerIcon = '../../assets/tiller2.jpg'
   // locations = [
   //   {lat: 12.9715987, lng: 77.5945627, status: false},
   //   {lat: 12.5715987, lng: 77.1945627, status: false},
@@ -91,6 +94,9 @@ export class GoogleMapComponent implements OnInit {
   refresh(location: Location) {
     // console.log('refresh called!');
     // this.getUserLocation();
+    for(let location of this.locations){
+      location.status = false;
+   }
     this.lat = 0;
     this.lng = 0;
     setTimeout(() => {
@@ -118,6 +124,8 @@ export class GoogleMapComponent implements OnInit {
     this.showFarmer = true;
     this.showDealer = false;
     this.showShops = false;
+    this.showTractors = false;
+    this.showTillers = false;
     this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllFarmers")
     .subscribe(data => {
       console.log('data '+data);
@@ -179,6 +187,8 @@ export class GoogleMapComponent implements OnInit {
     this.showDealer = true;
     this.showFarmer = false;
     this.showShops = false;
+    this.showTractors = false;
+    this.showTillers = false;
 
     this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllDealers")
     .subscribe(data => {
@@ -217,7 +227,8 @@ export class GoogleMapComponent implements OnInit {
     this.showDealer = false;
     this.showFarmer = false;
     this.showShops = true;
-
+    this.showTractors = false;
+    this.showTillers = false;
     this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllShops")
     .subscribe(data => {
       console.log('data '+data);
@@ -248,6 +259,20 @@ export class GoogleMapComponent implements OnInit {
       });
     }
     });
+  }
+
+  fetchFarmersWithResource(resource: String){
+    console.log('fetchFarmersWithResource'+resource);
+    this.fetchAllFarmers();
+    this.showFarmer = false;
+    this.showDealer = false;
+    this.showShops = false;
+    if(resource == 'tractor'){
+      this.showTractors = true;
+    }
+    if(resource == 'tiller'){
+      this.showTillers = true;
+    }
   }
 
   sendRequest(name: String, type: String) {
