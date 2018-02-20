@@ -1,9 +1,10 @@
 <div class="container">
     <div class="col-xs-4">
+     <br/>
       <div class="row">
         <input type="button" class="btn btn-primary" value="Farmers" (click)="showFarmersActivateSearch();">
         <input type="button" class="btn btn-primary" value="Dealers" (click)="showDealersActivateSearch();"/>
-        <input type="button" class="btn btn-primary" value="Vendors" (click)="showVendorsActivateSearch();"/>
+        <input type="button" class="btn btn-primary" value="Shop Keepers" (click)="showVendorsActivateSearch();"/>
         <br/>
         <br/>
         <div class="form-group" *ngIf="isActivated">
@@ -11,8 +12,19 @@
                    type="text" class="form-control">
                    <br/>
             <input type="button" class="btn btn-success" value="Search"/>
+        </div>        
+        <div>
+            <img src="../../assets/deal1.jpg" alt="deal1" width="85%" height="75%"/>
         </div>
-        
+        <br/>
+        <div>
+            <img src="../../assets/deal2.jpg" alt="deal2" width="85%" height="75%"/>
+        </div>
+        <br/>
+        <div>
+            <!-- <input type="button" class="btn btn-success" value="Click For More Deals!" (click)="openWindow();"/> -->
+            <a href="http://43.88.112.200:4200/" target="_blank" class="login">Click here for more deals!</a>            
+        </div>
       </div>
     </div>            
   </div>

@@ -21,11 +21,17 @@ export class GoogleMapComponent implements OnInit {
   @Input('lng') lng: number;
   @Input('mapData') mapData: any;
   @Input('phone') phone: number;
+  showFarmer = true;
+  showDealer = false;
+  showShops = false;
   // @ViewChild('marker') marker: Marker;
 
   place: string;
   currentLocationOpen = true;
-  icon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+  // icon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+  icon = '../../assets/farmer.png';
+  dealerIcon = '../../assets/dealer.jpg';
+  shopIcon = '../../assets/shop.jpg'
 
   // locations = [
   //   {lat: 12.9715987, lng: 77.5945627, status: false},
@@ -109,6 +115,9 @@ export class GoogleMapComponent implements OnInit {
   }
 
   fetchAllFarmers(){
+    this.showFarmer = true;
+    this.showDealer = false;
+    this.showShops = false;
     this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllFarmers")
     .subscribe(data => {
       console.log('data '+data);
@@ -166,8 +175,92 @@ export class GoogleMapComponent implements OnInit {
     });
   }
 
-  sendRequest(name: String) {
-    console.log('send message to '+ this.phone+ name);
+  fetchDealers(){
+    this.showDealer = true;
+    this.showFarmer = false;
+    this.showShops = false;
+
+    this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllDealers")
+    .subscribe(data => {
+      console.log('data '+data);
+      console.log('data '+data.locations);
+      this.locations = data.locations;      
+      console.log('locations is '+this.locations);
+
+      for(let location of this.locations){
+      location.favoriteButton = false;
+      location.requestButton = false;
+      let param = location.lat + ',' + location.lng;
+      const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
+      '?latlng=' + param + '&key=' + environment.googleMapsKey;
+    console.log('url is '+url);
+    this.httpClient.get<Result>(url)
+      .subscribe(data => {
+        let details: AddressDetail[];
+        details = data.results;
+        let address: Address[];
+        address = details[0].address_components;
+        let concatAdd = '';
+        for(let add of address){
+          if(add.long_name != undefined){                    
+            concatAdd += add.long_name + ' ';
+          }
+        }
+        location.place = concatAdd;
+      });
+    }
+    });
+  }
+
+  fetchShops(){
+    console.log('fetch shops called!');
+    this.showDealer = false;
+    this.showFarmer = false;
+    this.showShops = true;
+
+    this.httpClient.get<ResourceLocations>("http://localhost:8090/OHRestServices/fetchAllShops")
+    .subscribe(data => {
+      console.log('data '+data);
+      console.log('data '+data.locations);
+      this.locations = data.locations;      
+      console.log('locations is '+this.locations);
+
+      for(let location of this.locations){
+      location.favoriteButton = false;
+      location.requestButton = false;
+      let param = location.lat + ',' + location.lng;
+      const url = 'https://maps.googleapis.com/maps/api/geocode/json' +
+      '?latlng=' + param + '&key=' + environment.googleMapsKey;
+    console.log('url is '+url);
+    this.httpClient.get<Result>(url)
+      .subscribe(data => {
+        let details: AddressDetail[];
+        details = data.results;
+        let address: Address[];
+        address = details[0].address_components;
+        let concatAdd = '';
+        for(let add of address){
+          if(add.long_name != undefined){                    
+            concatAdd += add.long_name + ' ';
+          }
+        }
+        location.place = concatAdd;
+      });
+    }
+    });
+  }
+
+  sendRequest(name: String, type: String) {
+    console.log('send message to '+ this.phone+ name + type);
+    let message: String;
+    if(type == 'farmer'){
+      message = 'Please find the mobile number of the requested FARMER : 9898989898';
+    }else if (type == 'dealer'){
+      message = 'Please find the mobile number of the requested DEALER : 9898989898';
+    }else{
+      message = 'Please find the mobile number of the requested SHOPKEEPER : 9898989898';
+    }
+    
     for(let location of this.locations){
       if(location.name == name){
         location.requestButton = true;
@@ -182,7 +275,7 @@ export class GoogleMapComponent implements OnInit {
       "password":"sms1234",
       "device":"78747",
       "number":"9986695955",
-      "message":"hello there man!!"
+      "message":message
     })
     .subscribe(
       res => {

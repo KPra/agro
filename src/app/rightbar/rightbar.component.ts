@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WindowRef } from './windowref';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
     selector: 'app-rightbar',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   })
   export class RightbarComponent implements OnInit {
       isActivated = false;
+      @Output() farmerEmitter = new EventEmitter<String>();
+      @Output() dealerEmitter = new EventEmitter<String>();
+      @Output() shopEmitter = new EventEmitter<String>();
       ngOnInit(){
       }
 
@@ -15,13 +19,16 @@ import { Component, OnInit } from '@angular/core';
 
       showFarmersActivateSearch(){
         this.isActivated = true;
+        this.farmerEmitter.emit('farmer');
       }
 
       showDealersActivateSearch(){
         this.isActivated = false;
+        this.dealerEmitter.emit('dealer');
       }
 
       showVendorsActivateSearch(){
         this.isActivated = false;
+        this.shopEmitter.emit('shop');
       }
   }

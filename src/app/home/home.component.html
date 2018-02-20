@@ -6,5 +6,6 @@
 <app-google-map [mapData]="data" #agroMap [phone]="phone"
  [ngClass]="{'main-collapsed': toggled === 'collapse'}"
                 [ngClass]="{'main-expanded': toggled === 'expand'}"></app-google-map>
-<app-rightbar class="buttonbar-expanded"></app-rightbar>
+<app-rightbar class="buttonbar-expanded" (farmerEmitter)="agroMap.fetchAllFarmers();"
+(dealerEmitter)="agroMap.fetchDealers();" (shopEmitter)="agroMap.fetchShops();"></app-rightbar>
 <!--<app-buttonbar class="buttonbar-expanded"></app-buttonbar>-->

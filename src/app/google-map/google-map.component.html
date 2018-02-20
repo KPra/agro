@@ -4,7 +4,8 @@
     <agm-info-window [isOpen]="currentLocationOpen">
       <p><b>You are at:</b>{{place}}</p>
     </agm-info-window>
-</agm-marker>    
+</agm-marker>
+<div *ngIf="showFarmer">
 <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="icon" (markerClick)="openThisLocation(i);" #marker
 *ngFor="let location of locations; let i=index">
 <agm-info-window [isOpen]="location.status">
@@ -36,10 +37,35 @@
             land <img src="assets/land.jpg" width="40px" height="40px"/>
     </span>
     <br/><br/>
-            <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name);" [class.disabled]="location.requestButton"/>
+            <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name, 'farmer');" [class.disabled]="location.requestButton"/>
             <input type="button" class="btn btn-success" value="Add To Favorites"/>
 </agm-info-window>
 </agm-marker>
+</div>
+<div *ngIf="showDealer">
+        <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="dealerIcon" (markerClick)="openThisLocation(i);" #marker
+                *ngFor="let location of locations; let i=index">
+                <agm-info-window [isOpen]="location.status">
+                <p><b>Dealer Name</b> : {{location.name}}</p>
+                <p><b>Location</b> : {{location.place}}</p>
+                <br/><br/>
+                <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name, 'dealer');" [class.disabled]="location.requestButton"/>
+                <input type="button" class="btn btn-success" value="Add To Favorites"/>
+                </agm-info-window>
+        </agm-marker>        
+</div>
+<div *ngIf="showShops">
+                <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="shopIcon" (markerClick)="openThisLocation(i);" #marker
+                        *ngFor="let location of locations; let i=index">
+                        <agm-info-window [isOpen]="location.status">
+                        <p><b>ShopKeeper Name</b> : {{location.name}}</p>
+                        <p><b>Location</b> : {{location.place}}</p>
+                        <br/><br/>
+                        <input type="button" class="btn btn-primary" value="Request Now" (click)="sendRequest(location.name, 'shop');" [class.disabled]="location.requestButton"/>
+                        <input type="button" class="btn btn-success" value="Add To Favorites"/>
+                        </agm-info-window>
+                </agm-marker>        
+        </div>
 </agm-map>
 </div>
 
